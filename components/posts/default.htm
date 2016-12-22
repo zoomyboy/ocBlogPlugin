@@ -7,17 +7,22 @@
 
 <ul class="post-list">
     {% for post in posts %}
-        <li>
-            <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+        <li class="post-item">
+            <h3 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
 
-            <p class="info">
+			{% if category.show_published_in or category.show_published_date %}
+            <div class="post-info">
                 Posted
-                {% if post.categories.count %} in {% endif %}
-                {% for category in post.categories %}
-                    <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
-                {% endfor %}
+                {% if post.categories.count and category.show_published_in %} in 
+      		        {% for category in post.categories %}
+           		         <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+               		 {% endfor %}
+				{% endif %}
+				{% if category.show_published_date %}
                 on {{ post.published_at|date('M d, Y') }}
-            </p>
+				{% endif %}
+            </div>
+			{% endif %}
 
             <p class="excerpt">{{ post.summary }}</p>
         </li>

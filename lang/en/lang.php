@@ -76,7 +76,9 @@ return [
         'delete_confirm' => 'Delete this category?',
         'return_to_categories' => 'Return to the blog category list',
 		'reorder' => 'Reorder Categories',
-		'show_description' => 'Show description'
+		'show_description' => 'Show description',
+		'show_published_in' => 'show categories of posts',
+		'show_published_date' => 'Show published date',
 	],
 	'tab' => [
 		'settings' => 'Settings',

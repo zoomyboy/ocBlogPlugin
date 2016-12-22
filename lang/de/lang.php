@@ -64,7 +64,9 @@ return [
         'posts' => 'Posts',
         'delete_confirm' => 'Möchtest du die Kategorie wirklich löschen?',
 		'return_to_categories' => 'Zurück zur Kategorie-Übersicht.',
-		'show_description' => 'Beschreibung anzeigen'
+		'show_description' => 'Beschreibung anzeigen',
+		'show_published_in' => 'Kategorien von Beiträgen anzeigen',
+		'show_published_date' => 'Erstellungsdatum anzeigen',
     ],
 	'tab' => [
 		'settings' => 'Einstellungen',

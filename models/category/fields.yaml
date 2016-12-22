@@ -29,3 +29,15 @@ tabs:
             type: checkbox
             default: true
             tab: rainlab.blog::lang.tab.settings 
+
+        show_published_in:
+            label: rainlab.blog::lang.category.show_published_in
+            type: checkbox
+            default: false
+            tab: rainlab.blog::lang.tab.settings 
+
+        show_published_date:
+            label: rainlab.blog::lang.category.show_published_date
+            type: checkbox
+            default: false
+            tab: rainlab.blog::lang.tab.settings 
