@@ -63,8 +63,13 @@ return [
         'slug_placeholder' => 'new-category-slug',
         'posts' => 'Posts',
         'delete_confirm' => 'Möchtest du die Kategorie wirklich löschen?',
-        'return_to_categories' => 'Zurück zur Kategorie-Übersicht.'
+		'return_to_categories' => 'Zurück zur Kategorie-Übersicht.',
+		'show_description' => 'Beschreibung anzeigen'
     ],
+	'tab' => [
+		'settings' => 'Einstellungen',
+		'general' => 'Allgemein'
+	],
     'settings' => [
         'category_title' => 'Blog Kategorie-Übersicht',
         'category_description' => 'Zeigt eine Blog Kategorien-Übersicht.',

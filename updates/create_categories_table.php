@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('nest_left')->nullable();
             $table->integer('nest_right')->nullable();
             $table->integer('nest_depth')->nullable();
+			$table->integer('show_description');
             $table->timestamps();
         });
 

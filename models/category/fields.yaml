@@ -2,22 +2,30 @@
 #  Field Definitions
 # ===================================
 
-fields:
+tabs:
+    fields:
+        name:
+            label: rainlab.blog::lang.category.name
+            placeholder: rainlab.blog::lang.category.name_placeholder
+            span: left
+            tab: rainlab.blog::lang.tab.general
+        slug:
+            label: rainlab.blog::lang.category.slug
+            span: right
+            placeholder: rainlab.blog::lang.category.slug_placeholder
+            preset: name
+            tab: rainlab.blog::lang.tab.general
 
-    name:
-        label: rainlab.blog::lang.category.name
-        placeholder: rainlab.blog::lang.category.name_placeholder
-        span: left
-
-    slug:
-        label: rainlab.blog::lang.category.slug
-        span: right
-        placeholder: rainlab.blog::lang.category.slug_placeholder
-        preset: name
-
-    description:
-        label: 'rainlab.blog::lang.category.description'
-        size: large
-        oc.commentPosition: ''
-        span: full
-        type: textarea
+        description:
+            label: 'rainlab.blog::lang.category.description'
+            size: large
+            oc.commentPosition: ''
+            span: full
+            type: markdown
+            tab: rainlab.blog::lang.tab.general
+        
+        show_description:
+            label: rainlab.blog::lang.category.show_description
+            type: checkbox
+            default: true
+            tab: rainlab.blog::lang.tab.settings 

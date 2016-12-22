@@ -75,8 +75,13 @@ return [
         'posts' => 'Posts',
         'delete_confirm' => 'Delete this category?',
         'return_to_categories' => 'Return to the blog category list',
-        'reorder' => 'Reorder Categories'
-    ],
+		'reorder' => 'Reorder Categories',
+		'show_description' => 'Show description'
+	],
+	'tab' => [
+		'settings' => 'Settings',
+		'general' => 'General'
+	],
     'menuitem' => [
         'blog_category' => 'Blog category',
         'all_blog_categories' => 'All blog categories',
