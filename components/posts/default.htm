@@ -1,29 +1,12 @@
 {% set posts = __SELF__.posts %}
-{% if category.show_description %}
-<div class="category-description">
-	{{ category.description|md }}
-</div>
-{% endif %}
+
+{% partial "#{__SELF__.alias}::_description" %}
 
 <div class="post-list">
     {% for post in posts %}
         <div class="post-item">
-            <h3 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
-
-			{% if category.show_published_in or category.show_published_date %}
-            <div class="post-info">
-                Posted
-                {% if post.categories.count and category.show_published_in %} in 
-      		        {% for category in post.categories %}
-           		         <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
-               		 {% endfor %}
-				{% endif %}
-				{% if category.show_published_date %}
-                on {{ post.published_at|date('M d, Y') }}
-				{% endif %}
-            </div>
-			{% endif %}
-
+			{% partial "#{__SELF__.alias}::_postTitle" post=post %}
+			{% partial "#{__SELF__.alias}::_postInfo" post=post %}
             <p class="excerpt">{{ post.summary }}</p>
         </div>
     {% else %}
