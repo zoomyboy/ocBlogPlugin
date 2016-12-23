@@ -26,9 +26,59 @@ tabs:
         
         show_description:
             label: rainlab.blog::lang.category.show_description
-            type: checkbox
+            comment: Show description of category
+            type: checkbox 
             default: true
             tab: rainlab.blog::lang.tab.settings 
+
+        show_posts_description:
+            label: Show posts summary
+            type: radio 
+            options: 
+                1: Excerpt
+                2: Description
+                3: Both
+                0: Nothing
+            default: 3
+            tab: rainlab.blog::lang.tab.settings 
+
+        shorten_posts_excerpt_by:    
+            type: number
+            default: 0
+            tab: rainlab.blog::lang.tab.settings
+            label: Shorten posts description by
+            comment: Pass 0 to show full excerpt
+            trigger:
+                action: hide
+                field: show_posts_description
+                condition: value[0]
+
+        shorten_posts_description_by:    
+            type: number
+            default: 0
+            tab: rainlab.blog::lang.tab.settings
+            label: Shorten posts description by
+            comment: Pass 0 to show full description
+            trigger:
+                action: hide
+                field: show_posts_description
+                condition: value[0]
+        
+        show_posts_title:
+            type: checkbox
+            default: true
+            label: Show Title of posts
+            tab: rainlab.blog::lang.tab.settings
+
+        link_posts_title:
+            type: checkbox
+            default: true
+            label: Link title of posts
+            tab: rainlab.blog::lang.tab.settings
+            trigger:
+                action: show
+                field: show_posts_title
+                condition: checked
 
         show_published_in:
             label: rainlab.blog::lang.category.show_published_in

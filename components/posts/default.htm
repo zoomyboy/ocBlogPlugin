@@ -5,9 +5,9 @@
 <div class="post-list">
     {% for post in posts %}
         <div class="post-item">
-			{% partial "#{__SELF__.alias}::_postTitle" post=post %}
-			{% partial "#{__SELF__.alias}::_postInfo" post=post %}
-            <p class="excerpt">{{ post.summary }}</p>
+			{% partial "#{__SELF__.alias}::_postTitle" post=post category=category %}
+			{% partial "#{__SELF__.alias}::_postInfo" post=post description=description %}
+			{% partial "#{__SELF__.alias}::_postSummary" post=post description=description %}
         </div>
     {% else %}
         <span class="no-data">{{ noPostsMessage }}</span>

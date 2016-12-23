@@ -502,4 +502,20 @@ class Post extends Model
 
         return $url;
     }
+
+	public function shortExcerpt($limit) {
+		if ($limit != 0) {
+			return str_limit($this->excerpt, $limit);
+		}
+
+		return $this->excerpt;
+	}
+
+	public function shortContent($limit) {
+		if ($limit != 0) {
+			return str_limit($this->content, $limit);
+		}
+
+		return $this->content;
+	}
 }

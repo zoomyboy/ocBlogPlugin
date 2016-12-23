@@ -21,6 +21,11 @@ class CreateCategoriesTable extends Migration
             $table->integer('nest_right')->nullable();
             $table->integer('nest_depth')->nullable();
 			$table->integer('show_description');
+			$table->integer('show_posts_description');
+			$table->integer('shorten_posts_description_by');
+			$table->integer('shorten_posts_excerpt_by');
+			$table->integer('show_posts_title');
+			$table->integer('link_posts_title');
             $table->timestamps();
         });
 

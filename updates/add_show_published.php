@@ -20,8 +20,8 @@ class AddShowPublished extends Migration
     {
         Schema::table('rainlab_blog_categories', function($table)
         {
-            $table->deleteColumn('show_published_in');
-			$table->deleteColumn('show_published_date');
+            $table->dropColumn('show_published_in');
+			$table->dropColumn('show_published_date');
         });
     }
 
