@@ -31,6 +31,12 @@ tabs:
             default: true
             tab: rainlab.blog::lang.tab.settings 
 
+        images:
+            type: fileupload
+            label: Images
+            mode: image
+            tab: Images
+
         show_posts_description:
             label: Show posts summary
             type: radio 

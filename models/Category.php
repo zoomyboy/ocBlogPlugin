@@ -44,6 +44,10 @@ class Category extends Model
         ]
     ];
 
+	public $attachMany = [
+		'images' => 'System\Models\File'
+	];
+
     public function beforeValidate()
     {
         // Generate a URL slug for this model

@@ -1,5 +1,7 @@
 {% set posts = __SELF__.posts %}
 
+{% partial "#{__SELF__.alias}::_categoryImages" post=post category=category %}
+
 {% partial "#{__SELF__.alias}::_description" %}
 
 <div class="post-list">

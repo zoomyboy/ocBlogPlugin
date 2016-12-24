@@ -1,9 +1,9 @@
 {% if category.show_posts_title %}
-	<h3 class="post-title">
+	<h2 class="post-title">
 		{% if category.link_posts_title %}
 			<a href="{{ post.url }}">{{ post.title }}</a>
 		{% else %}
 			{{ post.title }}
 		{% endif %}
-	</h3>
+	</h2>
 {% endif %}
