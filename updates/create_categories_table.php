@@ -26,6 +26,8 @@ class CreateCategoriesTable extends Migration
 			$table->integer('shorten_posts_excerpt_by');
 			$table->integer('show_posts_title');
 			$table->integer('link_posts_title');
+			$table->integer('jssor1_id')->nullable()->unsigned();
+			$table->integer('jssor2_id')->nullable()->unsigned();
             $table->timestamps();
         });
 

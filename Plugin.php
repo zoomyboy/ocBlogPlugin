@@ -10,6 +10,8 @@ use Event;
 
 class Plugin extends PluginBase
 {
+	public $require = ['Zoomyboy.Jssor'];
+
     public function pluginDetails()
     {
         return [

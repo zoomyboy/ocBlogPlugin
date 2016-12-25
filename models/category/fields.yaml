@@ -97,3 +97,17 @@ tabs:
             type: checkbox
             default: false
             tab: rainlab.blog::lang.tab.settings 
+
+        jssor1:
+            type: relation
+            label: Jssor-Slider 1 
+            nameFrom: title
+            emptyOption: Keiner
+            tab: Jssor
+
+        jssor2:
+            type: relation
+            label: Jssor-Slider 2
+            nameFrom: title
+            emptyOption: Keiner
+            tab: Jssor

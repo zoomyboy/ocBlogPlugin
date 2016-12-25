@@ -44,6 +44,11 @@ class Category extends Model
         ]
     ];
 
+	public $belongsTo = [
+		'jssor1' => ['Zoomyboy\Jssor\Models\Jssor', 'public' => true],
+		'jssor2' => ['Zoomyboy\Jssor\Models\Jssor', 'public' => true]
+	];
+
 	public $attachMany = [
 		'images' => 'System\Models\File'
 	];
@@ -282,4 +287,12 @@ class Category extends Model
 
         return $url;
     }
+
+	public function hasJssor1() {
+		return $this->jssor1_id != null;
+	}
+
+	public function hasJssor2() {
+		return $this->jssor2_id != null;
+	}
 }
