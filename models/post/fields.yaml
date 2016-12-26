@@ -59,7 +59,7 @@ secondaryTabs:
         excerpt:
             tab: rainlab.blog::lang.post.tab_manage
             label: rainlab.blog::lang.post.excerpt
-            type: textarea
+            type: markdown
             size: small
 
         featured_images:
@@ -69,3 +69,40 @@ secondaryTabs:
             mode: image
             imageWidth: 200
             imageHeight: 200
+
+        show_description:
+            label: Show summary
+            type: radio 
+            options: 
+                1: Excerpt
+                2: Description
+                3: Both
+                0: Nothing
+            default: 3
+            tab: View
+
+        jssor1:
+            type: relation
+            label: Jssor-Slider 1 
+            nameFrom: title
+            emptyOption: Keiner
+            tab: View 
+
+        jssor2:
+            type: relation
+            label: Jssor-Slider 2
+            nameFrom: title
+            emptyOption: Keiner
+            tab: View 
+
+        show_published_in:
+            label: Show categories
+            type: checkbox
+            default: false
+            tab: View
+
+        show_published_date:
+            label: Show published date
+            type: checkbox
+            default: false
+            tab: View

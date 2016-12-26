@@ -1,0 +1,12 @@
+{% if post.show_description == 1 %}
+	<div class="post-excerpt">{{ post.excerpt | md }}</div>
+{% endif %}
+
+{% if post.show_description == 2 %}
+	<div class="post-description">{{ post.content_html | md }}</div>
+{% endif %}
+
+{% if post.show_description == 3 %}
+	<div class="post-excerpt">{{ post.excerpt | md}}</div>
+	<div class="post-description">{{ post.content_html|md }}</div>
+{% endif %}

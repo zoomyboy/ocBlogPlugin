@@ -49,8 +49,17 @@ class Post extends ComponentBase
 
     public function onRun()
     {
+
         $this->categoryPage = $this->page['categoryPage'] = $this->property('categoryPage');
         $this->post = $this->page['post'] = $this->loadPost();
+
+		if ($this->post->hasJssor1()) {
+			$this->renderComponent('jssor1', ['gallery' => $this->post->jssor1->id]);
+		}
+
+		if ($this->post->hasJssor2()) {
+			$this->renderComponent('jssor2', ['gallery' => $this->post->jssor2->id]);
+		}
     }
 
     protected function loadPost()

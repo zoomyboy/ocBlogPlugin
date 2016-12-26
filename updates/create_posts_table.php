@@ -20,6 +20,11 @@ class CreatePostsTable extends Migration
             $table->longText('content_html')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->boolean('published')->default(false);
+			$table->integer('show_description');
+			$table->integer('jssor1_id')->nullable()->unsigned();
+			$table->integer('jssor2_id')->nullable()->unsigned();
+            $table->integer('show_published_in');
+			$table->integer('show_published_date');
             $table->timestamps();
         });
     }

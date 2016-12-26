@@ -1,0 +1,13 @@
+{% if post.show_published_in or post.show_published_date %}
+<div class="post-info">
+	Posted
+	{% if post.categories.count and post.show_published_in %} in 
+		{% for post in post.categories %}
+			 <a href="{{ post.url }}">{{ post.name }}</a>{% if not loop.last %}, {% endif %}
+		 {% endfor %}
+	{% endif %}
+	{% if post.show_published_date %}
+	on {{ post.published_at|date('M d, Y') }}
+	{% endif %}
+</div>
+{% endif %}

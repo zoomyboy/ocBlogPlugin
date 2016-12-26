@@ -70,7 +70,9 @@ class Post extends Model
      * Relations
      */
     public $belongsTo = [
-        'user' => ['Backend\Models\User']
+        'user' => ['Backend\Models\User'],
+		'jssor1' => ['Zoomyboy\Jssor\Models\Jssor', 'public' => true],
+		'jssor2' => ['Zoomyboy\Jssor\Models\Jssor', 'public' => true]
     ];
 
     public $belongsToMany = [
@@ -517,5 +519,13 @@ class Post extends Model
 		}
 
 		return $this->content;
+	}
+
+	public function hasJssor1() {
+		return $this->jssor1_id != null;
+	}
+
+	public function hasJssor2() {
+		return $this->jssor2_id != null;
 	}
 }
