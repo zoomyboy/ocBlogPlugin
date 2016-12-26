@@ -52,15 +52,23 @@ class Post extends ComponentBase
 
         $this->categoryPage = $this->page['categoryPage'] = $this->property('categoryPage');
         $this->post = $this->page['post'] = $this->loadPost();
-
-		if ($this->post->hasJssor1()) {
-			$this->renderComponent('jssor1', ['gallery' => $this->post->jssor1->id]);
-		}
-
-		if ($this->post->hasJssor2()) {
-			$this->renderComponent('jssor2', ['gallery' => $this->post->jssor2->id]);
-		}
     }
+
+	public function jssor1() {
+		if (!$this->post->hasJssor1()) {
+			return '';
+		}
+
+		return$this->renderComponent('jssor1', ['gallery' => $this->post->jssor1->id]);
+	}
+
+	public function jssor2() {
+		if (!$this->post->hasJssor2()) {
+			return '';
+		}
+
+		return$this->renderComponent('jssor2', ['gallery' => $this->post->jssor2->id]);
+	}
 
     protected function loadPost()
     {

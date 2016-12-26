@@ -141,14 +141,6 @@ class Posts extends ComponentBase
         $this->category = $this->page['category'] = $this->loadCategory();
         $this->posts = $this->page['posts'] = $this->listPosts();
 
-		if ($this->category->hasJssor1()) {
-			$this->renderComponent('jssor1', ['gallery' => $this->category->jssor1->id]);
-		}
-
-		if ($this->category->hasJssor2()) {
-			$this->renderComponent('jssor2', ['gallery' => $this->category->jssor2->id]);
-		}
-
         /*
          * If the page number is not valid, redirect
          */
@@ -159,6 +151,22 @@ class Posts extends ComponentBase
                 return Redirect::to($this->currentPageUrl([$pageNumberParam => $lastPage]));
         }
     }
+
+	public function jssor1() {
+		if (!$this->category->hasJssor1()) {
+			return '';
+		}
+
+		return$this->renderComponent('jssor1', ['gallery' => $this->category->jssor1->id]);
+	}
+
+	public function jssor2() {
+		if (!$this->category->hasJssor2()) {
+			return '';
+		}
+
+		return$this->renderComponent('jssor2', ['gallery' => $this->category->jssor2->id]);
+	}
 
     protected function prepareVars()
     {
