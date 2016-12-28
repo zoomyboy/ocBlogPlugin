@@ -157,7 +157,7 @@ class Posts extends ComponentBase
 			return '';
 		}
 
-		return$this->renderComponent('jssor1', ['gallery' => $this->category->jssor1->id]);
+		return $this->renderComponent('jssor1', ['gallery' => $this->category->jssor1->id]);
 	}
 
 	public function jssor2() {

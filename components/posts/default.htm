@@ -1,37 +1,39 @@
-{% set posts = __SELF__.posts %}
-
-{% partial "#{__SELF__.alias}::_jssor" category=category %}
-
-{% partial "#{__SELF__.alias}::_categoryImages" post=post category=category %}
-
-{% partial "#{__SELF__.alias}::_description" %}
-
-<div class="post-list">
-    {% for post in posts %}
-        <div class="post-item">
-			{% partial "#{__SELF__.alias}::_postTitle" post=post category=category %}
-			{% partial "#{__SELF__.alias}::_postInfo" post=post description=description %}
-			{% partial "#{__SELF__.alias}::_postSummary" post=post description=description %}
-        </div>
-    {% else %}
-        <span class="no-data">{{ noPostsMessage }}</span>
-    {% endfor %}
+<div class="posts-component">
+	{% set posts = __SELF__.posts %}
+	
+	{% partial "#{__SELF__.alias}::_jssor" category=category %}
+	
+	{% partial "#{__SELF__.alias}::_categoryImages" post=post category=category %}
+	
+	{% partial "#{__SELF__.alias}::_description" %}
+	
+	<div class="post-list">
+	    {% for post in posts %}
+	        <div class="post-item">
+				{% partial "#{__SELF__.alias}::_postTitle" post=post category=category %}
+				{% partial "#{__SELF__.alias}::_postInfo" post=post description=description %}
+				{% partial "#{__SELF__.alias}::_postSummary" post=post description=description %}
+	        </div>
+	    {% else %}
+	        <span class="no-data">{{ noPostsMessage }}</span>
+	    {% endfor %}
+	</div>
+	
+	{% if posts.lastPage > 1 %}
+	    <ul class="pagination">
+	        {% if posts.currentPage > 1 %}
+	            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage-1) }) }}">&larr; Prev</a></li>
+	        {% endif %}
+	
+	        {% for page in 1..posts.lastPage %}
+	            <li class="{{ posts.currentPage == page ? 'active' : null }}">
+	                <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+	            </li>
+	        {% endfor %}
+	
+	        {% if posts.lastPage > posts.currentPage %}
+	            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage+1) }) }}">Next &rarr;</a></li>
+	        {% endif %}
+	    </ul>
+	{% endif %}
 </div>
-
-{% if posts.lastPage > 1 %}
-    <ul class="pagination">
-        {% if posts.currentPage > 1 %}
-            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage-1) }) }}">&larr; Prev</a></li>
-        {% endif %}
-
-        {% for page in 1..posts.lastPage %}
-            <li class="{{ posts.currentPage == page ? 'active' : null }}">
-                <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
-            </li>
-        {% endfor %}
-
-        {% if posts.lastPage > posts.currentPage %}
-            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage+1) }) }}">Next &rarr;</a></li>
-        {% endif %}
-    </ul>
-{% endif %}
