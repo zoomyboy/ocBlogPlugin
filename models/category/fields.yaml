@@ -98,6 +98,18 @@ tabs:
             default: false
             tab: rainlab.blog::lang.tab.settings 
 
+        show_posts:
+            label: Show Posts
+            type: checkbox
+            default: false
+            tab: rainlab.blog::lang.tab.settings 
+
+        show_categories:
+            label: Show Categories
+            type: checkbox
+            default: false
+            tab: rainlab.blog::lang.tab.settings 
+
         jssor1:
             type: relation
             label: Jssor-Slider 1 

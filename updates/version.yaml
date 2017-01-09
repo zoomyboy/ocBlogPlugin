@@ -42,3 +42,6 @@
 1.2.15:
     - Add show published
     - add_show_published.php
+1.2.16:
+    - Show posts categories
+    - show_posts_categories.php
