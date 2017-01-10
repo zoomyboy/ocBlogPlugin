@@ -1,7 +1,7 @@
 {% if category.hasJssor1() %}
-	{{ __SELF__.jssor1() | raw }}
+	{% component 'categoryJssor1' gallery=category.jssor1_id %}
 {% endif %}
 
 {% if category.hasJssor2() %}
-	{{ __SELF__.jssor2() | raw }}
+	{% component 'categoryJssor2' gallery=category.jssor2_id %}
 {% endif %}

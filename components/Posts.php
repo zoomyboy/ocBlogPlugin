@@ -152,22 +152,6 @@ class Posts extends ComponentBase
         }
     }
 
-	public function jssor1() {
-		if (!$this->category->hasJssor1()) {
-			return '';
-		}
-
-		return $this->renderComponent('jssor1', ['gallery' => $this->category->jssor1->id]);
-	}
-
-	public function jssor2() {
-		if (!$this->category->hasJssor2()) {
-			return '';
-		}
-
-		return$this->renderComponent('jssor2', ['gallery' => $this->category->jssor2->id]);
-	}
-
     protected function prepareVars()
     {
         $this->pageParam = $this->page['pageParam'] = $this->paramName('pageNumber');
