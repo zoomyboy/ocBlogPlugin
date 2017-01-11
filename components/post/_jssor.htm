@@ -1,7 +1,7 @@
 {% if post.hasJssor1() %}
-	{{ __SELF__.jssor1() | raw }}
+	{% component 'postJssor1' gallery=post.jssor1_id %}
 {% endif %}
 
 {% if post.hasJssor2() %}
-	{{ __SELF__.jssor2() | raw }}
+	{% component 'postJssor2' gallery=post.jssor2_id %}
 {% endif %}
