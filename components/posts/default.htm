@@ -12,6 +12,7 @@
 	        <div class="post-item">
 				{% partial "#{__SELF__.alias}::_postTitle" post=post category=category %}
 				{% partial "#{__SELF__.alias}::_postInfo" post=post description=description %}
+				{% partial "#{__SELF__.alias}::_postJssor" post=post %}
 				{% partial "#{__SELF__.alias}::_postSummary" post=post description=description %}
 	        </div>
 	    {% else %}
