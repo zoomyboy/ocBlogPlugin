@@ -110,6 +110,11 @@ tabs:
             default: false
             tab: rainlab.blog::lang.tab.settings 
 
+        order_by:
+            label: Order posts by
+            type: radio
+            default: 'title asc'
+            
         jssor1:
             type: relation
             label: Jssor-Slider 1 

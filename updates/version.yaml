@@ -45,3 +45,9 @@
 1.2.16:
     - Show posts categories
     - show_posts_categories.php
+1.2.17:
+    - Add order column
+    - add_order_column.php
+1.2.18:
+    - Edit order column
+    - edit_order_column.php

@@ -295,4 +295,8 @@ class Category extends Model
 	public function hasJssor2() {
 		return $this->jssor2_id != null;
 	}
+
+	public function getOrderByOptions() {
+		return Post::$allowedSortingOptions;
+	}
 }

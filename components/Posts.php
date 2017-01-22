@@ -173,7 +173,7 @@ class Posts extends ComponentBase
          */
         $posts = BlogPost::with('categories')->listFrontEnd([
             'page'       => $this->property('pageNumber'),
-            'sort'       => $this->property('sortOrder'),
+            'sort'       => $this->category->order_by,
             'perPage'    => $this->property('postsPerPage'),
             'search'     => trim(input('search')),
             'category'   => $category,
