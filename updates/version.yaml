@@ -51,3 +51,13 @@
 1.2.18:
     - Edit order column
     - edit_order_column.php
+
+1.2.19:
+    - Add Header image
+    - add_header_image.php
+1.2.20:
+    - Add Layout Option
+    - add_layout_option.php
+1.2.21:
+    - Add Box summary
+    - add_box_summary.php

@@ -49,6 +49,10 @@ class Category extends Model
 		'jssor2' => ['Zoomyboy\Jssor\Models\Jssor', 'public' => true]
 	];
 
+	public $attachOne = [
+		'header_image' => 'System\Models\File'
+	];
+
 	public $attachMany = [
 		'images' => 'System\Models\File'
 	];
@@ -298,5 +302,41 @@ class Category extends Model
 
 	public function getOrderByOptions() {
 		return Post::$allowedSortingOptions;
+	}
+
+	/**
+	 * Get layout options (files in partials/layouts directory)
+	 *
+	 * @return array
+	 */
+	public function getLayoutOptions() {
+		$files = glob(plugins_path('rainlab/blog/components/posts/layouts/*.htm'));
+		$files = array_map(function($file) {
+			return pathinfo($file, PATHINFO_FILENAME);
+		}, $files);
+
+		if (!in_array('default', $files)) {
+			return $files;
+		}
+
+		//Ensure that default layoyut is at index 0 (this is the default option/file)
+		$files = array_filter($files, function($file) {
+			return $file != 'default';
+		});
+		array_unshift($files, 'default');
+		return $files;
+	}
+
+	/**
+	 * Gets filename of a layout index
+	 *
+	 * @param int $layoutIndex the index
+	 *
+	 * @return string
+	 */
+	public function getLayoutFile() {
+		$layouts = $this->getLayoutOptions();
+
+		return $layouts[$this->layout].'.htm';
 	}
 }

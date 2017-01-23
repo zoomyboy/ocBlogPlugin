@@ -83,6 +83,11 @@ class Post extends Model
         ]
     ];
 
+	public $attachOne = [
+		'header_image' => 'System\Models\File',
+		'box_image' => 'System\Models\File'
+	];
+
     public $attachMany = [
         'featured_images' => ['System\Models\File', 'order' => 'sort_order'],
         'content_images' => ['System\Models\File']
@@ -527,5 +532,41 @@ class Post extends Model
 
 	public function hasJssor2() {
 		return $this->jssor2_id != null;
+	}
+
+	/**
+	 * Get layout options (files in partials/layouts directory)
+	 *
+	 * @return array
+	 */
+	public function getLayoutOptions() {
+		$files = glob(plugins_path('rainlab/blog/components/post/layouts/*.htm'));
+		$files = array_map(function($file) {
+			return pathinfo($file, PATHINFO_FILENAME);
+		}, $files);
+
+		if (!in_array('default', $files)) {
+			return $files;
+		}
+
+		//Ensure that default layoyut is at index 0 (this is the default option/file)
+		$files = array_filter($files, function($file) {
+			return $file != 'default';
+		});
+		array_unshift($files, 'default');
+		return $files;
+	}
+
+	/**
+	 * Gets filename of a layout index
+	 *
+	 * @param int $layoutIndex the index
+	 *
+	 * @return string
+	 */
+	public function getLayoutFile() {
+		$layouts = $this->getLayoutOptions();
+
+		return $layouts[$this->layout].'.htm';
 	}
 }

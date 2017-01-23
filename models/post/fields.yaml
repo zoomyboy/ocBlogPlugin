@@ -62,6 +62,18 @@ secondaryTabs:
             type: markdown
             size: small
 
+        box_summary:
+            tab: rainlab.blog::lang.post.tab_manage
+            label: Box summary
+            type: textarea
+            size: small
+
+        box_image:
+            label: Box image
+            type: fileupload
+            mode: image
+            tab: Images
+
         featured_images:
             tab: rainlab.blog::lang.post.tab_manage
             label: rainlab.blog::lang.post.featured_images
@@ -69,6 +81,12 @@ secondaryTabs:
             mode: image
             imageWidth: 200
             imageHeight: 200
+
+        header_image:
+            type: fileupload
+            label: Header Image
+            mode: image
+            tab: Images
 
         show_description:
             label: Show summary
@@ -106,3 +124,8 @@ secondaryTabs:
             type: checkbox
             default: false
             tab: View
+
+        layout:    
+            label: Layout
+            type: dropdown
+            default: 0

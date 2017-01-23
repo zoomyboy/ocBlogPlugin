@@ -37,6 +37,12 @@ tabs:
             mode: image
             tab: Images
 
+        header_image:
+            type: fileupload
+            label: Header Image
+            mode: image
+            tab: Images
+
         show_posts_description:
             label: Show posts summary
             type: radio 
@@ -58,6 +64,7 @@ tabs:
                 action: hide
                 field: show_posts_description
                 condition: value[0]
+
 
         shorten_posts_description_by:    
             type: number
@@ -114,6 +121,11 @@ tabs:
             label: Order posts by
             type: radio
             default: 'title asc'
+
+        layout:    
+            label: Layout
+            type: dropdown
+            default: 0
             
         jssor1:
             type: relation
