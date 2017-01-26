@@ -114,11 +114,17 @@ tabs:
         show_posts:
             label: Show Posts
             type: checkbox
-            default: false
+            default: true
             tab: rainlab.blog::lang.tab.settings 
 
         show_categories:
             label: Show Categories
+            type: checkbox
+            default: true
+            tab: rainlab.blog::lang.tab.settings 
+
+        merge_categories_with_posts:
+            label: Merge Categories with posts
             type: checkbox
             default: false
             tab: rainlab.blog::lang.tab.settings 

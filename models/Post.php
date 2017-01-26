@@ -302,7 +302,7 @@ class Post extends Model
 		
 		//return $query->paginate($perPage, $page);
 		$posts = $query->get();
-		$all = $posts->merge($category->children);
+		$all =($category->merge_categories_with_posts) ? $posts->merge($category->children) : $posts;
 		$allOnCurrentPage = $all->forPage($page, $perPage);
 
 		return new LengthAwarePaginator($allOnCurrentPage, $all->count(), $perPage, $page, [
