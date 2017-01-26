@@ -82,6 +82,10 @@ class Post extends ComponentBase
 
         $post = $post->isPublished()->first();
 
+		if ($post == null) {
+			throw new \Exception("Post with slug ".$slug." not found!");
+		}
+		
         /*
          * Add a "url" helper attribute for linking to each category
          */

@@ -15,6 +15,8 @@ use Backend\Models\User;
 use Carbon\Carbon;
 use Cms\Classes\Page as CmsPage;
 use Cms\Classes\Theme;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 class Post extends Model
 {
@@ -286,12 +288,27 @@ class Post extends Model
             $category = Category::find($category);
 
             $categories = $category->getAllChildrenAndSelf()->lists('id');
-            $query->whereHas('categories', function($q) use ($categories) {
-                $q->whereIn('id', $categories);
-            });
-        }
 
-        return $query->paginate($perPage, $page);
+			//Nur Posts der aktuellen Kategorie
+			$query->whereHas('categories', function($q) use ($category) {
+				return $q->where('id', $category->id);
+			});
+
+			//Unterkategorien und deren Posts
+            //$query->whereHas('categories', function($q) use ($categories) {
+            //    $q->whereIn('id', $categories);
+            //});
+        }
+		
+		//return $query->paginate($perPage, $page);
+		$posts = $query->get();
+		$all = $posts->merge($category->children);
+		$allOnCurrentPage = $all->forPage($page, $perPage);
+
+		return new LengthAwarePaginator($allOnCurrentPage, $all->count(), $perPage, $page, [
+			'path' => Paginator::resolveCurrentPath(),
+			'pageName' => 'page'
+		]);
     }
 
     /**

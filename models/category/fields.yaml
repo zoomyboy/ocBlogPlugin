@@ -43,6 +43,12 @@ tabs:
             mode: image
             tab: Images
 
+        box_image:
+            label: Box image
+            type: fileupload
+            mode: image
+            tab: Images
+
         show_posts_description:
             label: Show posts summary
             type: radio 

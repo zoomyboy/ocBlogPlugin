@@ -184,11 +184,15 @@ class Posts extends ComponentBase
          * Add a "url" helper attribute for linking to each post and category
          */
         $posts->each(function($post) {
-            $post->setUrl($this->postPage, $this->controller);
+			if (is_a($post, 'Rainlab\Blog\Models\Post')) {
+				$post->setUrl($this->postPage, $this->controller);
 
-            $post->categories->each(function($category) {
-                $category->setUrl($this->categoryPage, $this->controller);
-            });
+				$post->categories->each(function($category) {
+					$category->setUrl($this->categoryPage, $this->controller);
+				});
+			} elseif(is_a($post, 'Rainlab\Blog\Models\Category')) {
+				$post->setUrl($this->CategoryPage, $this->controller);
+			}
         });
 
         return $posts;

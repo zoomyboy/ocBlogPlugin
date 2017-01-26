@@ -50,7 +50,8 @@ class Category extends Model
 	];
 
 	public $attachOne = [
-		'header_image' => 'System\Models\File'
+		'header_image' => 'System\Models\File',
+		'box_image' => 'System\Models\File'
 	];
 
 	public $attachMany = [
