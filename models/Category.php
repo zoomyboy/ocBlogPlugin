@@ -340,4 +340,8 @@ class Category extends Model
 
 		return $layouts[$this->layout].'.htm';
 	}
+
+	public function getTitleAttribute() {
+		return $this->name;
+	}
 }
