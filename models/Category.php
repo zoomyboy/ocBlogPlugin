@@ -353,6 +353,10 @@ class Category extends Model
 	}
 
 	public function getBoxSummaryAttribute() {
-		return $this->description;
+		if ($this->box_summary_display == '') {
+			return $this->description;
+		}
+
+		return $this->box_summary_display;
 	}
 }

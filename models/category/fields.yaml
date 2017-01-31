@@ -129,6 +129,13 @@ tabs:
             default: false
             tab: rainlab.blog::lang.tab.settings 
 
+        box_summary_display:
+            label: Box summary
+            type: textarea
+            size: small
+            tab: rainlab.blog::lang.tab.settings 
+            description: Wenn dieses Feld leer ist, wird die Description in der Box angezeigt.
+
         order_by:
             label: Order posts by
             type: radio

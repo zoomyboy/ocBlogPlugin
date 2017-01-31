@@ -64,3 +64,6 @@
 1.2.22:
     - Add Category merge
     - add_category_merge.php
+1.2.23:
+    - Add Box Summary To category
+    - add_box_summary_to_category.php
