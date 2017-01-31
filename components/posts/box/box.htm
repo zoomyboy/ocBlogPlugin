@@ -5,7 +5,7 @@
 {% if category.show_categories and category.merge_categories_with_posts == false %}
 <div class="category-list row">
 	{% for post in category.children %}
-		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 co-xl-4 layout-image" style="height: 300px;">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 co-xl-4 layout-image">
 			<article style="background-image: url('{{ post.box_image.getPath() }}'); height: 300px;" class="grid-image">
 				<header class="grid-image-caption">
 					<h2>
@@ -31,7 +31,7 @@
 {% if category.show_posts %}
 <div class="post-list row">
 	{% for post in posts %}
-		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 co-xl-4 layout-image" style="height: 300px;">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 co-xl-4 layout-image">
 			<article style="background-image: url('{{ post.box_image.getPath() }}'); height: 300px;" class="grid-image">
 				<header class="grid-image-caption">
 					<h2>
