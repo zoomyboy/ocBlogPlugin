@@ -1,5 +1,5 @@
 <div class="posts-component">
 	{% set posts = __SELF__.posts %}
 	
-	{% partial "#{__SELF__.alias}::layouts/#{__SELF__.category.getLayoutFile()}" category=category %}
+	{% partial "@#{__SELF__.category.layoutFilename}/#{__SELF__.category.layoutFile}" category=category %}
 </div>

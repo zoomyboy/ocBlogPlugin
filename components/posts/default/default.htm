@@ -1,0 +1,51 @@
+{% partial "@default/_jssor" category=category %}
+
+{% if category.show_categories and category.merge_categories_with_posts == false %}
+<div class="category-list">
+	{% for subCategory in category.children %}
+		<div class="category-item">
+			{% partial "@default/_postTitle" post=subCategory category=category %}
+			{% partial "@default/_postInfo" post=subCategory %}
+			{% partial "@default/_postJssor" post=subCategory %}
+			{% partial "@default/_postSummary" post=subCategory %}
+		</div>
+	{% else %}
+		<span class="no-data">{{ noPostsMessage }}</span>
+	{% endfor %}
+</div>
+{% endif %}
+
+{% partial "@default/_description" %}
+
+{% if category.show_posts %}
+<div class="post-list">
+	{% for post in posts %}
+		<div class="post-item">
+			{% partial "@default/_postTitle" post=post category=category %}
+			{% partial "@default/_postInfo" post=post %}
+			{% partial "@default/_postJssor" post=post %}
+			{% partial "@default/_postSummary" post=post %}
+		</div>
+	{% else %}
+		<span class="no-data">{{ noPostsMessage }}</span>
+	{% endfor %}
+</div>
+{% endif %}
+
+{% if posts.lastPage > 1 %}
+	<ul class="pagination">
+		{% if posts.currentPage > 1 %}
+			<li><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage-1) }) }}">&larr; Prev</a></li>
+		{% endif %}
+
+		{% for page in 1..posts.lastPage %}
+			<li class="{{ posts.currentPage == page ? 'active' : null }}">
+				<a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+			</li>
+		{% endfor %}
+
+		{% if posts.lastPage > posts.currentPage %}
+			<li><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage+1) }) }}">Next &rarr;</a></li>
+		{% endif %}
+	</ul>
+{% endif %}

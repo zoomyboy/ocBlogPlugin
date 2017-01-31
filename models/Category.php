@@ -311,7 +311,7 @@ class Category extends Model
 	 * @return array
 	 */
 	public function getLayoutOptions() {
-		$files = glob(plugins_path('rainlab/blog/components/posts/layouts/*.htm'));
+		$files = glob(plugins_path('rainlab/blog/components/posts/*/'));
 		$files = array_map(function($file) {
 			return pathinfo($file, PATHINFO_FILENAME);
 		}, $files);
@@ -329,16 +329,23 @@ class Category extends Model
 	}
 
 	/**
-	 * Gets filename of a layout index
-	 *
-	 * @param int $layoutIndex the index
+	 * Gets file of a layout index (with extension)
 	 *
 	 * @return string
 	 */
-	public function getLayoutFile() {
+	public function getLayoutFileAttribute() {
 		$layouts = $this->getLayoutOptions();
 
 		return $layouts[$this->layout].'.htm';
+	}
+
+	/**
+	 * Gets filename of a layout index (without extension)
+	 *
+	 * @return string
+	 */
+	public function getLayoutFilenameAttribute() {
+		return pathinfo($this->layoutFile, PATHINFO_FILENAME);
 	}
 
 	public function getTitleAttribute() {
