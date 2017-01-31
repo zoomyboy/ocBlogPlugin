@@ -1,0 +1,7 @@
+{% if category.hasJssor1() %}
+	{% component 'categoryJssor1' gallery=category.jssor1_id %}
+{% endif %}
+
+{% if category.hasJssor2() %}
+	{% component 'categoryJssor2' gallery=category.jssor2_id %}
+{% endif %}

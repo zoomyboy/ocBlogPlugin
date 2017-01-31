@@ -1,0 +1,7 @@
+{% if post.hasJssor1() %}
+	{% component 'postJssor1' gallery=post.jssor1_id %}
+{% endif %}
+
+{% if post.hasJssor2() %}
+	{% component 'postJssor2' gallery=post.jssor2_id %}
+{% endif %}

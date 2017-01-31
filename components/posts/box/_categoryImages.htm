@@ -1,0 +1,7 @@
+{% if category.images.count %}
+	<div class="category-images">
+		{% for image in category.images %}
+		<div class="image-wrapper"><img src="{{ image.getPath() }}"></div>
+		{% endfor %}
+	</div>
+{% endif %}

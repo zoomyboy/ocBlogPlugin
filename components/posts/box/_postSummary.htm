@@ -1,0 +1,12 @@
+{% if category.show_posts_description == 1 %}
+	<div class="post-excerpt">{{ post.shortExcerpt(category.shorten_posts_excerpt_by) }}</div>
+{% endif %}
+
+{% if category.show_posts_description == 2 %}
+	<div class="post-description">{{ post.shortContent(category.shorten_posts_description_by)|md }}</div>
+{% endif %}
+
+{% if category.show_posts_description == 3 %}
+	<div class="post-excerpt">{{ post.shortExcerpt(category.shorten_posts_excerpt_by) }}</div>
+	<div class="post-description">{{ post.shortContent(category.shorten_posts_description_by)|md }}</div>
+{% endif %}

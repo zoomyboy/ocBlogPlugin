@@ -1,9 +1,34 @@
-{% partial "#{__SELF__.alias}::_jssor" category=category %}
+{% partial "@default/_jssor" category=category %}
+{% partial "@default/_description" %}
+{% partial "@default/_categoryImages" %}
 
-{% partial "#{__SELF__.alias}::_categoryImages" post=post category=category %}
+{% if category.show_categories and category.merge_categories_with_posts == false %}
+<div class="category-list row">
+	{% for post in category.children %}
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 co-xl-4 layout-image" style="height: 300px;">
+			<article style="background-image: url('{{ post.box_image.getPath() }}'); height: 300px;" class="grid-image">
+				<header class="grid-image-caption">
+					<h2>
+						<a href="{{ post.url }}">
+							{{ post.title }}
+						</a>
+					</h2>
+				</header>
+				<div class="grid-image-bg" style="height: 245px">
+					<div class="grid-image-scale" style="height: 245px">
+						<span class="grid-image-desc">{{ post.box_summary }}</span>
+						<a class="grid-image-readmore" href="{{ post.url }}">
+							Weiterlesen...
+						</a>	
+					</div>
+				</div>
+			</article>
+		</div>
+	{% endfor %}
+</div>
+{% endif %}
 
-{% partial "#{__SELF__.alias}::_description" %}
-
+{% if category.show_posts %}
 <div class="post-list row">
 	{% for post in posts %}
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 co-xl-4 layout-image" style="height: 300px;">
@@ -27,6 +52,7 @@
 		</div>
 	{% endfor %}
 </div>
+{% endif %}
 
 												
 
@@ -47,3 +73,4 @@
 		{% endif %}
 	</ul>
 {% endif %}
+

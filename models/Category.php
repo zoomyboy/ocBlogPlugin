@@ -351,4 +351,8 @@ class Category extends Model
 	public function getTitleAttribute() {
 		return $this->name;
 	}
+
+	public function getBoxSummaryAttribute() {
+		return $this->description;
+	}
 }
