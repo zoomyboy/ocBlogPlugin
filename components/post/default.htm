@@ -2,8 +2,7 @@
 <div class="post-component">
 	{% partial "#{__SELF__.alias}::_jssor" post=post %}
 	{% partial "#{__SELF__.alias}::_postInfo" post=post %}
-	{% partial "#{__SELF__.alias}::_summary" post=post %}
-	
+
 	{% if post.featured_images.count %}
 	    <div class="featured-images text-center">
 	        {% for image in post.featured_images %}
@@ -17,4 +16,6 @@
 	        {% endfor %}
 	    </div>
 	{% endif %}
+
+	{% partial "#{__SELF__.alias}::_summary" post=post %}
 </div>
