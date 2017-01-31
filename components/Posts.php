@@ -212,6 +212,10 @@ class Posts extends ComponentBase
 
         $category = $category->first();
 
+		$category->children->each(function($child) {
+			$child->setUrl($this->CategoryPage, $this->controller);
+		});
+
         return $category ?: null;
     }
 }
