@@ -6,7 +6,7 @@
 <div class="category-list row">
 	{% for post in category.children %}
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 co-xl-4 layout-image">
-			<article style="background-image: url('{{ post.box_image.getPath() }}'); height: 300px;" class="grid-image">
+			<article style="background-image: url('{{ post.box_image.getPath() }}');" class="grid-image">
 				<header class="grid-image-caption">
 					<h2>
 						<a href="{{ post.url }}">
@@ -14,8 +14,8 @@
 						</a>
 					</h2>
 				</header>
-				<div class="grid-image-bg" style="height: 245px">
-					<div class="grid-image-scale" style="height: 245px">
+				<div class="grid-image-bg">
+					<div class="grid-image-scale">
 						<span class="grid-image-desc">{{ post.box_summary }}</span>
 						<a class="grid-image-readmore" href="{{ post.url }}">
 							Weiterlesen...
@@ -32,7 +32,7 @@
 <div class="post-list row">
 	{% for post in posts %}
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 co-xl-4 layout-image">
-			<article style="background-image: url('{{ post.box_image.getPath() }}'); height: 300px;" class="grid-image">
+			<article style="background-image: url('{{ post.box_image.getPath() }}');" class="grid-image">
 				<header class="grid-image-caption">
 					<h2>
 						<a href="{{ post.url }}">
@@ -40,8 +40,8 @@
 						</a>
 					</h2>
 				</header>
-				<div class="grid-image-bg" style="height: 245px">
-					<div class="grid-image-scale" style="height: 245px">
+				<div class="grid-image-bg">
+					<div class="grid-image-scale">
 						<span class="grid-image-desc">{{ post.box_summary }}</span>
 						<a class="grid-image-readmore" href="{{ post.url }}">
 							Weiterlesen...

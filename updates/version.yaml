@@ -67,3 +67,12 @@
 1.2.23:
     - Add Box Summary To category
     - add_box_summary_to_category.php
+1.2.24:
+    - Create Quelles Table
+    - create_quelles_table.php
+1.2.25:
+    - Add Quelle
+    - add_quelle.php
+1.2.26:
+    - Add Weiteres
+    - add_weiteres.php

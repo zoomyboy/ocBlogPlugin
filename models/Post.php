@@ -52,6 +52,11 @@ class Post extends Model
      */
     protected $dates = ['published_at'];
 
+	protected $casts = [
+		'quelle' => 'json',
+		'weiteres' => 'json'
+	];
+
     /**
      * The attributes on which the post list can be ordered
      * @var array
@@ -92,7 +97,7 @@ class Post extends Model
 
     public $attachMany = [
         'featured_images' => ['System\Models\File', 'order' => 'sort_order'],
-        'content_images' => ['System\Models\File']
+		'content_images' => ['System\Models\File'],
     ];
 
     /**

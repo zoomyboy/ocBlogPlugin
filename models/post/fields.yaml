@@ -68,6 +68,33 @@ secondaryTabs:
             type: textarea
             size: small
 
+        quelle: 
+            type: repeater
+            label: Quellen
+            form:
+                fields:
+                    link: 
+                        type: text
+                        label: URL
+                    label: 
+                        type: text
+                        label: Label
+
+        weiteres: 
+            type: repeater
+            label: Weitere Angaben
+            form:
+                fields:
+                    link: 
+                        type: text
+                        label: URL
+                    label: 
+                        type: text
+                        label: Label
+                    text: 
+                        type: textarea
+                        label: Label
+
         box_image:
             label: Box image
             type: fileupload

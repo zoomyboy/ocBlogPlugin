@@ -167,12 +167,12 @@ class Posts extends ComponentBase
     protected function listPosts()
     {
         $category = $this->category ? $this->category->id : null;
-
+		$pageNumber = $this->property('pageNumber') ?: 1;
         /*
          * List all the posts, eager load their categories
          */
         $posts = BlogPost::with('categories')->listFrontEnd([
-            'page'       => $this->property('pageNumber'),
+            'page'       => $pageNumber,
             'sort'       => $this->category->order_by,
             'perPage'    => $this->property('postsPerPage'),
             'search'     => trim(input('search')),

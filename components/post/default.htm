@@ -18,4 +18,25 @@
 	{% endif %}
 
 	{% partial "#{__SELF__.alias}::_summary" post=post %}
+
+	{% if post.quelle %}
+	<div id="quelle" class="quelle-wrapper">
+		<h2 class="quelle-header">Quellen</h2>
+		{% for quelle in post.quelle %}
+		<a href="{{ quelle.link }}" title="{{ quelle.label }}" target="_blank">{{ quelle.label }}</a>
+		{% endfor %}
+	</div>
+	{% endif %}
+
+	{% if post.weiteres %}
+	<div id="weiteres" class="weiteres-wrapper">
+		<h2 class="weiteres-header">Weiterführende Links</h2>
+		{% for weiter in post.weiteres %}
+			<a href="{{ weiter.link }}" title="{{ weiter.label }}" target="_blank">{{ weiter.label }}</a>
+			{% if weiter.text %}
+			<div class="weiteres-desc"> {{ weiter.text }} </div>
+			{% endif %}
+		{% endfor %}
+	</div>
+	{% endif %}
 </div>
