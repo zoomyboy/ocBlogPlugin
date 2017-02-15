@@ -59,8 +59,8 @@
     - Add Layout Option
     - add_layout_option.php
 1.2.21:
-    - Add Box summary
-    - add_box_summary.php
+    - Add Box summary To post
+    - add_box_summary_to_post.php
 1.2.22:
     - Add Category merge
     - add_category_merge.php

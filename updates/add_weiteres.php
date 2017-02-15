@@ -4,7 +4,7 @@ use Schema;
 use October\Rain\Database\Updates\Migration;
 use RainLab\Blog\Models\Category as CategoryModel;
 
-class AddQuelle extends Migration
+class AddWeiteres extends Migration
 {
 
     public function up()

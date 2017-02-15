@@ -4,7 +4,7 @@ use Schema;
 use October\Rain\Database\Updates\Migration;
 use RainLab\Blog\Models\Category as CategoryModel;
 
-class AddBoxSummary extends Migration
+class AddBoxSummaryToCategory extends Migration
 {
 
     public function up()
@@ -22,5 +22,4 @@ class AddBoxSummary extends Migration
             $table->dropColumn('box_summary_display');
         });
     }
-
 }
