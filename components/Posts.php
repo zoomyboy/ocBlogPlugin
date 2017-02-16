@@ -6,6 +6,7 @@ use Cms\Classes\ComponentBase;
 use RainLab\Blog\Models\Post as BlogPost;
 use RainLab\Blog\Models\Category as BlogCategory;
 use Rainlab\Blog\Models\Settings;
+use Event;
 
 class Posts extends ComponentBase
 {
@@ -145,6 +146,8 @@ class Posts extends ComponentBase
         $this->posts = $this->page['posts'] = $this->listPosts();
 		$this->headerImage = Settings::get('default_header_image');
 
+		$this->buildTrackingCode();
+
         /*
          * If the page number is not valid, redirect
          */
@@ -155,6 +158,21 @@ class Posts extends ComponentBase
                 return Redirect::to($this->currentPageUrl([$pageNumberParam => $lastPage]));
         }
     }
+
+	private function buildTrackingCode() {
+		$categoryTitle = $this->category->title;
+
+		if (empty($categoryTitle) || !Settings::get('a_contentgroup_enable')) {
+			return false;
+		}
+
+		$categoryIndex = Settings::get('a_contentgroup_category_group_index');
+		$trackingCode = 'ga("set", "contentGroup' . $categoryIndex . '", "' . $categoryTitle . '");';
+
+		Event::listen('googleanalytics.extend_tracking_code', function() use ($trackingCode) {
+			return $trackingCode;
+		});
+	}
 
     protected function prepareVars()
     {

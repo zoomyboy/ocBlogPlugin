@@ -4,6 +4,7 @@ use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use RainLab\Blog\Models\Post as BlogPost;
 use Rainlab\Blog\Models\Settings;
+use Event;
 
 class Post extends ComponentBase
 {
@@ -52,11 +53,42 @@ class Post extends ComponentBase
 
     public function onRun()
     {
-
         $this->categoryPage = $this->page['categoryPage'] = $this->property('categoryPage');
 		$this->headerImage = Settings::get('default_header_image');
         $this->post = $this->page['post'] = $this->loadPost();
+
+		$this->buildTrackingCode();
     }
+
+	private function buildTrackingCode() {
+		if (!Settings::get('a_contentgroup_enable')) {
+			return false;
+		}
+
+		$trackingCode = [];
+		$category = $this->post->categories->first();
+		$postTitle = $this->post->title;
+
+		if (!is_null($category) && Settings::get('a_group_category_of_post')) {
+			$categoryIndex = Settings::get('a_contentgroup_category_group_index');
+			$trackingCode[] = "ga('set', 'contentGroup" . $categoryIndex . "', '" . $category->name . "');";
+		}
+
+		if (!empty($postTitle)) {
+			$postIndex = Settings::get('a_contentgroup_post_group_index');
+			$trackingCode[] = 'ga("set", "contentGroup' . $postIndex . '", "' . $postTitle . '");';
+		}
+
+		if(!count($trackingCode)) {
+			return false;
+		}
+
+		$trackingCode = implode($trackingCode, '');
+
+		Event::listen('googleanalytics.extend_tracking_code', function() use ($trackingCode) {
+			return $trackingCode;
+		});
+	}
 
 	public function jssor1() {
 		if (!$this->post->hasJssor1()) {

@@ -56,10 +56,10 @@ class Plugin extends PluginBase
                 'tab'   => 'rainlab.blog::lang.blog.tab',
                 'label' => 'rainlab.blog::lang.blog.access_publish'
 			],
-            'rainlab.blog.settings' => [
+			'rainlab.blog.settings' => [
                 'tab'   => 'Settings',
                 'label' => 'Manage Settings'
-            ]
+			]
         ];
     }
 
@@ -169,7 +169,7 @@ class Plugin extends PluginBase
 		return [
 			'settings' => [
 				'label'       => 'Blog settings',
-				'description' => 'Maanage blog settings',
+				'description' => 'Manage blog settings',
 				'category'    => 'Plugins',
 				'icon'        => 'icon-cog',
 				'class'       => 'Rainlab\Blog\Models\Settings',

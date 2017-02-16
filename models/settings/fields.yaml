@@ -2,8 +2,60 @@
 #  Form Field Definitions
 # ===================================
 
-fields:
-    default_header_image:
-        type: mediafinder
-        mode: image
-        label: Default header image
+tabs:
+    stretch: true
+    fields:
+        a_property_id:
+            tab: Google Analytics
+            label: Porperty ID
+            type: text
+
+        a_contentgroup_enable:
+            tab: Google Analytics
+            label: Enable Content Grouping
+            type: checkbox
+
+        a_contentgroup_category_group_index:
+            tab: Google Analytics
+            label: ID for Categories
+            type: dropdown
+            options: 
+                1: 1
+                2: 2
+                3: 3
+                4: 4
+                5: 5
+            trigger:
+                action: show
+                field: a_contentgroup_enable
+                condition: checked
+
+        a_contentgroup_post_group_index:
+            tab: Google Analytics
+            label: ID for Posts
+            type: dropdown
+            options: 
+                1: 1
+                2: 2
+                3: 3
+                4: 4
+                5: 5
+            trigger:
+                action: show
+                field: a_contentgroup_enable
+                condition: checked
+
+        a_group_category_of_post:
+            tab: Google Analytics
+            label: Group Category of posts
+            type: checkbox
+            trigger:
+                action: show
+                field: a_contentgroup_enable
+                condition: checked
+
+        default_header_image:
+            type: mediafinder
+            mode: image
+            label: Default header image
+            tab: Misc
