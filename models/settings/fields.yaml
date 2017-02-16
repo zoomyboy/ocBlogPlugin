@@ -1,0 +1,9 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    default_header_image:
+        type: mediafinder
+        mode: image
+        label: Default header image

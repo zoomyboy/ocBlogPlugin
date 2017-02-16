@@ -5,6 +5,7 @@ use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use RainLab\Blog\Models\Post as BlogPost;
 use RainLab\Blog\Models\Category as BlogCategory;
+use Rainlab\Blog\Models\Settings;
 
 class Posts extends ComponentBase
 {
@@ -43,6 +44,8 @@ class Posts extends ComponentBase
      * @var string
      */
     public $categoryPage;
+
+	public $headerImage;
 
     /**
      * If the post list should be ordered by another attribute.
@@ -140,6 +143,7 @@ class Posts extends ComponentBase
 
         $this->category = $this->page['category'] = $this->loadCategory();
         $this->posts = $this->page['posts'] = $this->listPosts();
+		$this->headerImage = Settings::get('default_header_image');
 
         /*
          * If the page number is not valid, redirect

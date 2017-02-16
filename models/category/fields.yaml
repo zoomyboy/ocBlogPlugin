@@ -43,6 +43,12 @@ tabs:
             mode: image
             tab: Images
 
+        show_header_image:
+            type: checkbox
+            label: Show header image
+            tab: Images
+            default: true
+
         box_image:
             label: Box image
             type: fileupload

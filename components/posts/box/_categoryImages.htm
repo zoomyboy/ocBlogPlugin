@@ -1,3 +1,10 @@
+{% if category.show_header_image %}
+	{% if category.header_image %}
+	{% put pageImage %} style="background-image: url({{ category.header_image.getPath() }})" {% endput %}
+	{% else %}
+	{% put pageImage %} style="background-image: url({{ __SELF__.headerImage | media }})" {% endput %}
+	{% endif %}
+{% endif %}
 {% if category.images.count %}
 	<div class="category-images">
 		{% for image in category.images %}

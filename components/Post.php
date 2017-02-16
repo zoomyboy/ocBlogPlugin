@@ -3,6 +3,7 @@
 use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use RainLab\Blog\Models\Post as BlogPost;
+use Rainlab\Blog\Models\Settings;
 
 class Post extends ComponentBase
 {
@@ -15,6 +16,8 @@ class Post extends ComponentBase
      * @var string Reference to the page name for linking to categories.
      */
     public $categoryPage;
+
+	public $headerImage;
 
     public function componentDetails()
     {
@@ -51,6 +54,7 @@ class Post extends ComponentBase
     {
 
         $this->categoryPage = $this->page['categoryPage'] = $this->property('categoryPage');
+		$this->headerImage = Settings::get('default_header_image');
         $this->post = $this->page['post'] = $this->loadPost();
     }
 

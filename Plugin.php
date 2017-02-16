@@ -55,6 +55,10 @@ class Plugin extends PluginBase
             'rainlab.blog.access_publish' => [
                 'tab'   => 'rainlab.blog::lang.blog.tab',
                 'label' => 'rainlab.blog::lang.blog.access_publish'
+			],
+            'rainlab.blog.settings' => [
+                'tab'   => 'Settings',
+                'label' => 'Manage Settings'
             ]
         ];
     }
@@ -160,4 +164,19 @@ class Plugin extends PluginBase
             }
         });
     }
+
+	public function registerSettings() {
+		return [
+			'settings' => [
+				'label'       => 'Blog settings',
+				'description' => 'Maanage blog settings',
+				'category'    => 'Plugins',
+				'icon'        => 'icon-cog',
+				'class'       => 'Rainlab\Blog\Models\Settings',
+				'order'       => 500,
+				'keywords'    => 'security location',
+				'permissions' => ['rainlab.blog.settings']
+			]
+		];
+	}
 }

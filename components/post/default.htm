@@ -1,4 +1,11 @@
 {% set post = __SELF__.post %}
+
+{% if post.header_image %}
+{% put pageImage %} style="background-image: url({{ post.header_image.getPath() }})" {% endput %}
+{% else %}
+{% put pageImage %} style="background-image: url({{ __SELF__.headerImage | media }})" {% endput %}
+{% endif %}
+
 <div class="post-component">
 	{% partial "#{__SELF__.alias}::_jssor" post=post %}
 	{% partial "#{__SELF__.alias}::_postInfo" post=post %}
