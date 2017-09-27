@@ -47,11 +47,6 @@ class Categories extends ComponentBase
                 'type'        => 'checkbox',
                 'default'     => 0
             ],
-			'category' => [
-				'title' => 'Parent Category',
-				'description' => 'Parent Category',
-				'type' => 'dropdown'
-			],
             'categoryPage' => [
                 'title'       => 'rainlab.blog::lang.settings.category_page',
                 'description' => 'rainlab.blog::lang.settings.category_page_description',
@@ -65,11 +60,7 @@ class Categories extends ComponentBase
     public function getCategoryPageOptions()
     {
         return Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
-	}
-
-	public function getCategoryOptions() {
-		return BlogCategory::get()->pluck('name', 'id')->toArray();
-	}
+    }
 
     public function onRun()
     {
@@ -97,7 +88,6 @@ class Categories extends ComponentBase
         }
 
         $categories = $categories->getNested();
-		$categories = BlogCategory::find($this->property('category'))->children;
 
         /*
          * Add a "url" helper attribute for linking to each category

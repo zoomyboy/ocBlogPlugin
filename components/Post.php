@@ -3,8 +3,6 @@
 use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use RainLab\Blog\Models\Post as BlogPost;
-use Rainlab\Blog\Models\Settings;
-use Event;
 
 class Post extends ComponentBase
 {
@@ -17,8 +15,6 @@ class Post extends ComponentBase
      * @var string Reference to the page name for linking to categories.
      */
     public $categoryPage;
-
-	public $headerImage;
 
     public function componentDetails()
     {
@@ -54,57 +50,8 @@ class Post extends ComponentBase
     public function onRun()
     {
         $this->categoryPage = $this->page['categoryPage'] = $this->property('categoryPage');
-		$this->headerImage = Settings::get('default_header_image');
         $this->post = $this->page['post'] = $this->loadPost();
-
-		$this->buildTrackingCode();
     }
-
-	private function buildTrackingCode() {
-		if (!Settings::get('a_contentgroup_enable')) {
-			return false;
-		}
-
-		$trackingCode = [];
-		$category = $this->post->categories->first();
-		$postTitle = $this->post->title;
-
-		if (!is_null($category) && Settings::get('a_group_category_of_post')) {
-			$categoryIndex = Settings::get('a_contentgroup_category_group_index');
-			$trackingCode[] = "ga('set', 'contentGroup" . $categoryIndex . "', '" . $category->name . "');";
-		}
-
-		if (!empty($postTitle)) {
-			$postIndex = Settings::get('a_contentgroup_post_group_index');
-			$trackingCode[] = 'ga("set", "contentGroup' . $postIndex . '", "' . $postTitle . '");';
-		}
-
-		if(!count($trackingCode)) {
-			return false;
-		}
-
-		$trackingCode = implode($trackingCode, '');
-
-		Event::listen('googleanalytics.extend_tracking_code', function() use ($trackingCode) {
-			return $trackingCode;
-		});
-	}
-
-	public function jssor1() {
-		if (!$this->post->hasJssor1()) {
-			return '';
-		}
-
-		return$this->renderComponent('jssor1', ['gallery' => $this->post->jssor1->id]);
-	}
-
-	public function jssor2() {
-		if (!$this->post->hasJssor2()) {
-			return '';
-		}
-
-		return$this->renderComponent('jssor2', ['gallery' => $this->post->jssor2->id]);
-	}
 
     protected function loadPost()
     {
@@ -118,18 +65,47 @@ class Post extends ComponentBase
 
         $post = $post->isPublished()->first();
 
-		if ($post == null) {
-			throw new \Exception("Post with slug ".$slug." not found!");
-		}
-		
         /*
          * Add a "url" helper attribute for linking to each category
          */
         if ($post && $post->categories->count()) {
-            $post->categories->each(function($category){
+            $post->categories->each(function($category) {
                 $category->setUrl($this->categoryPage, $this->controller);
             });
         }
+
+        return $post;
+    }
+
+    public function previousPost()
+    {
+        return $this->getPostSibling(-1);
+    }
+
+    public function nextPost()
+    {
+        return $this->getPostSibling(1);
+    }
+
+    protected function getPostSibling($direction = 1)
+    {
+        if (!$this->post) {
+            return;
+        }
+
+        $method = $direction === -1 ? 'previousPost' : 'nextPost';
+
+        if (!$post = $this->post->$method()) {
+            return;
+        }
+
+        $postPage = $this->getPage()->getBaseFileName();
+
+        $post->setUrl($postPage, $this->controller);
+
+        $post->categories->each(function($category) {
+            $category->setUrl($this->categoryPage, $this->controller);
+        });
 
         return $post;
     }

@@ -1,49 +1,27 @@
 {% set post = __SELF__.post %}
 
-{% if post.header_image %}
-{% put pageImage %} style="background-image: url({{ post.header_image.getPath() }})" {% endput %}
-{% else %}
-{% put pageImage %} style="background-image: url({{ __SELF__.headerImage | media }})" {% endput %}
+<div class="content">{{ post.content_html|raw }}</div>
+
+{% if post.featured_images.count %}
+    <div class="featured-images text-center">
+        {% for image in post.featured_images %}
+            <p>
+                <img
+                    data-src="{{ image.filename }}"
+                    src="{{ image.path }}"
+                    alt="{{ image.description }}"
+                    style="max-width: 100%" />
+            </p>
+        {% endfor %}
+    </div>
 {% endif %}
 
-<div class="post-component">
-	{% partial "#{__SELF__.alias}::_jssor" post=post %}
-	{% partial "#{__SELF__.alias}::_postInfo" post=post %}
-
-	{% if post.featured_images.count %}
-	    <div class="featured-images text-center">
-	        {% for image in post.featured_images %}
-	            <p>
-	                <img
-	                    data-src="{{ image.filename }}"
-	                    src="{{ image.path }}"
-	                    alt="{{ image.description }}"
-	                    style="max-width: 100%" />
-	            </p>
-	        {% endfor %}
-	    </div>
-	{% endif %}
-
-	{% partial "#{__SELF__.alias}::_summary" post=post %}
-
-	{% if post.quelle %}
-	<div id="quelle" class="quelle-wrapper">
-		<h2 class="quelle-header">Quellen</h2>
-		{% for quelle in post.quelle %}
-		<a href="{{ quelle.link }}" title="{{ quelle.label }}" target="_blank">{{ quelle.label }}</a>
-		{% endfor %}
-	</div>
-	{% endif %}
-
-	{% if post.weiteres %}
-	<div id="weiteres" class="weiteres-wrapper">
-		<h2 class="weiteres-header">Weiterführende Links</h2>
-		{% for weiter in post.weiteres %}
-			<a href="{{ weiter.link }}" title="{{ weiter.label }}" target="_blank">{{ weiter.label }}</a>
-			{% if weiter.text %}
-			<div class="weiteres-desc"> {{ weiter.text }} </div>
-			{% endif %}
-		{% endfor %}
-	</div>
-	{% endif %}
-</div>
+<p class="info">
+    Posted
+    {% if post.categories.count %} in
+        {% for category in post.categories %}
+            <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    {% endif %}
+    on {{ post.published_at|date('M d, Y') }}
+</p>

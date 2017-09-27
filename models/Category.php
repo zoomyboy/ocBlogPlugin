@@ -44,25 +44,12 @@ class Category extends Model
         ]
     ];
 
-	public $belongsTo = [
-		'jssor1' => ['Zoomyboy\Jssor\Models\Jssor', 'public' => true],
-		'jssor2' => ['Zoomyboy\Jssor\Models\Jssor', 'public' => true]
-	];
-
-	public $attachOne = [
-		'header_image' => 'System\Models\File',
-		'box_image' => 'System\Models\File'
-	];
-
-	public $attachMany = [
-		'images' => 'System\Models\File'
-	];
-
     public function beforeValidate()
     {
         // Generate a URL slug for this model
-        if (!$this->exists && !$this->slug)
+        if (!$this->exists && !$this->slug) {
             $this->slug = Str::slug($this->name);
+        }
     }
 
     public function afterDelete()
@@ -83,7 +70,7 @@ class Category extends Model
     public function setUrl($pageName, $controller)
     {
         $params = [
-            'id' => $this->id,
+            'id'   => $this->id,
             'slug' => $this->slug,
         ];
 
@@ -102,7 +89,7 @@ class Category extends Model
      *   false if omitted.
      * - dynamicItems - Boolean value indicating whether the item type could generate new menu items.
      *   Optional, false if omitted.
-     * - cmsPages - a list of CMS pages (objects of the Cms\Classes\Page class), if the item type requires a CMS page reference to 
+     * - cmsPages - a list of CMS pages (objects of the Cms\Classes\Page class), if the item type requires a CMS page reference to
      *   resolve the item URL.
      * @param string $type Specifies the menu item type
      * @return array Returns an array
@@ -185,9 +172,9 @@ class Category extends Model
      * - url - the menu item URL. Not required for menu item types that return all available records.
      *   The URL should be returned relative to the website root and include the subdirectory, if any.
      *   Use the URL::to() helper to generate the URLs.
-     * - isActive - determines whether the menu item is active. Not required for menu item types that 
+     * - isActive - determines whether the menu item is active. Not required for menu item types that
      *   return all available records.
-     * - items - an array of arrays with the same keys (url, isActive, items) + the title key. 
+     * - items - an array of arrays with the same keys (url, isActive, items) + the title key.
      *   The items array should be added only if the $item's $nesting property value is TRUE.
      * @param \RainLab\Pages\Classes\MenuItem $item Specifies the menu item.
      * @param \Cms\Classes\Theme $theme Specifies the current theme.
@@ -200,16 +187,19 @@ class Category extends Model
         $result = null;
 
         if ($item->type == 'blog-category') {
-            if (!$item->reference || !$item->cmsPage)
+            if (!$item->reference || !$item->cmsPage) {
                 return;
+            }
 
             $category = self::find($item->reference);
-            if (!$category)
+            if (!$category) {
                 return;
+            }
 
             $pageUrl = self::getCategoryPageUrl($item->cmsPage, $category, $theme);
-            if (!$pageUrl)
+            if (!$pageUrl) {
                 return;
+            }
 
             $pageUrl = URL::to($pageUrl);
 
@@ -241,7 +231,7 @@ class Category extends Model
                     return $branch;
                 };
 
-				$result['items'] = $iterator($category->children);
+                $result['items'] = $iterator($categories);
             }
         }
         elseif ($item->type == 'all-blog-categories') {
@@ -272,7 +262,9 @@ class Category extends Model
     protected static function getCategoryPageUrl($pageCode, $category, $theme)
     {
         $page = CmsPage::loadCached($theme, $pageCode);
-        if (!$page) return;
+        if (!$page) {
+            return;
+        }
 
         $properties = $page->getComponentProperties('blogPosts');
         if (!isset($properties['categoryFilter'])) {
@@ -292,71 +284,4 @@ class Category extends Model
 
         return $url;
     }
-
-	public function hasJssor1() {
-		return $this->jssor1_id != null;
-	}
-
-	public function hasJssor2() {
-		return $this->jssor2_id != null;
-	}
-
-	public function getOrderByOptions() {
-		return Post::$allowedSortingOptions;
-	}
-
-	/**
-	 * Get layout options (files in partials/layouts directory)
-	 *
-	 * @return array
-	 */
-	public function getLayoutOptions() {
-		$files = glob(plugins_path('rainlab/blog/components/posts/*/'));
-		$files = array_map(function($file) {
-			return pathinfo($file, PATHINFO_FILENAME);
-		}, $files);
-
-		if (!in_array('default', $files)) {
-			return $files;
-		}
-
-		//Ensure that default layoyut is at index 0 (this is the default option/file)
-		$files = array_filter($files, function($file) {
-			return $file != 'default';
-		});
-		array_unshift($files, 'default');
-		return $files;
-	}
-
-	/**
-	 * Gets file of a layout index (with extension)
-	 *
-	 * @return string
-	 */
-	public function getLayoutFileAttribute() {
-		$layouts = $this->getLayoutOptions();
-
-		return $layouts[$this->layout].'.htm';
-	}
-
-	/**
-	 * Gets filename of a layout index (without extension)
-	 *
-	 * @return string
-	 */
-	public function getLayoutFilenameAttribute() {
-		return pathinfo($this->layoutFile, PATHINFO_FILENAME);
-	}
-
-	public function getTitleAttribute() {
-		return $this->name;
-	}
-
-	public function getBoxSummaryAttribute() {
-		if ($this->box_summary_display == '') {
-			return $this->description;
-		}
-
-		return $this->box_summary_display;
-	}
 }

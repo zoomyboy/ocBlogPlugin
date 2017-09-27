@@ -59,47 +59,8 @@ secondaryTabs:
         excerpt:
             tab: rainlab.blog::lang.post.tab_manage
             label: rainlab.blog::lang.post.excerpt
-            type: markdown
-            size: small
-
-        box_summary:
-            tab: rainlab.blog::lang.post.tab_manage
-            label: Box summary
             type: textarea
             size: small
-
-        quelle: 
-            type: repeater
-            label: Quellen
-            form:
-                fields:
-                    link: 
-                        type: text
-                        label: URL
-                    label: 
-                        type: text
-                        label: Label
-
-        weiteres: 
-            type: repeater
-            label: Weitere Angaben
-            form:
-                fields:
-                    link: 
-                        type: text
-                        label: URL
-                    label: 
-                        type: text
-                        label: Label
-                    text: 
-                        type: textarea
-                        label: Label
-
-        box_image:
-            label: Box image
-            type: fileupload
-            mode: image
-            tab: Images
 
         featured_images:
             tab: rainlab.blog::lang.post.tab_manage
@@ -108,57 +69,3 @@ secondaryTabs:
             mode: image
             imageWidth: 200
             imageHeight: 200
-
-        header_image:
-            type: fileupload
-            label: Header Image
-            mode: image
-            tab: Images
-
-        show_header_image:
-            type: checkbox
-            label: Show header image
-            tab: Images
-            default: true
-
-        show_description:
-            label: Show summary
-            type: radio 
-            options: 
-                1: Excerpt
-                2: Description
-                3: Both
-                0: Nothing
-            default: 3
-            tab: View
-
-        jssor1:
-            type: relation
-            label: Jssor-Slider 1 
-            nameFrom: title
-            emptyOption: Keiner
-            tab: View 
-
-        jssor2:
-            type: relation
-            label: Jssor-Slider 2
-            nameFrom: title
-            emptyOption: Keiner
-            tab: View 
-
-        show_published_in:
-            label: Show categories
-            type: checkbox
-            default: false
-            tab: View
-
-        show_published_date:
-            label: Show published date
-            type: checkbox
-            default: false
-            tab: View
-
-        layout:    
-            label: Layout
-            type: dropdown
-            default: 0

@@ -5,8 +5,6 @@ use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use RainLab\Blog\Models\Post as BlogPost;
 use RainLab\Blog\Models\Category as BlogCategory;
-use Rainlab\Blog\Models\Settings;
-use Event;
 
 class Posts extends ComponentBase
 {
@@ -45,8 +43,6 @@ class Posts extends ComponentBase
      * @var string
      */
     public $categoryPage;
-
-	public $headerImage;
 
     /**
      * If the post list should be ordered by another attribute.
@@ -144,9 +140,6 @@ class Posts extends ComponentBase
 
         $this->category = $this->page['category'] = $this->loadCategory();
         $this->posts = $this->page['posts'] = $this->listPosts();
-		$this->headerImage = Settings::get('default_header_image');
-
-		$this->buildTrackingCode();
 
         /*
          * If the page number is not valid, redirect
@@ -158,21 +151,6 @@ class Posts extends ComponentBase
                 return Redirect::to($this->currentPageUrl([$pageNumberParam => $lastPage]));
         }
     }
-
-	private function buildTrackingCode() {
-		$categoryTitle = $this->category->title;
-
-		if (empty($categoryTitle) || !Settings::get('a_contentgroup_enable')) {
-			return false;
-		}
-
-		$categoryIndex = Settings::get('a_contentgroup_category_group_index');
-		$trackingCode = 'ga("set", "contentGroup' . $categoryIndex . '", "' . $categoryTitle . '");';
-
-		Event::listen('googleanalytics.extend_tracking_code', function() use ($trackingCode) {
-			return $trackingCode;
-		});
-	}
 
     protected function prepareVars()
     {
@@ -189,13 +167,13 @@ class Posts extends ComponentBase
     protected function listPosts()
     {
         $category = $this->category ? $this->category->id : null;
-		$pageNumber = $this->property('pageNumber') ?: 1;
+
         /*
          * List all the posts, eager load their categories
          */
         $posts = BlogPost::with('categories')->listFrontEnd([
-            'page'       => $pageNumber,
-            'sort'       => $this->category->order_by,
+            'page'       => $this->property('pageNumber'),
+            'sort'       => $this->property('sortOrder'),
             'perPage'    => $this->property('postsPerPage'),
             'search'     => trim(input('search')),
             'category'   => $category,
@@ -206,15 +184,11 @@ class Posts extends ComponentBase
          * Add a "url" helper attribute for linking to each post and category
          */
         $posts->each(function($post) {
-			if (is_a($post, 'Rainlab\Blog\Models\Post')) {
-				$post->setUrl($this->postPage, $this->controller);
+            $post->setUrl($this->postPage, $this->controller);
 
-				$post->categories->each(function($category) {
-					$category->setUrl($this->categoryPage, $this->controller);
-				});
-			} elseif(is_a($post, 'Rainlab\Blog\Models\Category')) {
-				$post->setUrl($this->CategoryPage, $this->controller);
-			}
+            $post->categories->each(function($category) {
+                $category->setUrl($this->categoryPage, $this->controller);
+            });
         });
 
         return $posts;
@@ -233,10 +207,6 @@ class Posts extends ComponentBase
             : $category->where('slug', $slug);
 
         $category = $category->first();
-
-		$category->children->each(function($child) {
-			$child->setUrl($this->CategoryPage, $this->controller);
-		});
 
         return $category ?: null;
     }

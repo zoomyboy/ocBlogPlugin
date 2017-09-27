@@ -2,166 +2,22 @@
 #  Field Definitions
 # ===================================
 
-tabs:
-    fields:
-        name:
-            label: rainlab.blog::lang.category.name
-            placeholder: rainlab.blog::lang.category.name_placeholder
-            span: left
-            tab: rainlab.blog::lang.tab.general
-        slug:
-            label: rainlab.blog::lang.category.slug
-            span: right
-            placeholder: rainlab.blog::lang.category.slug_placeholder
-            preset: name
-            tab: rainlab.blog::lang.tab.general
+fields:
 
-        description:
-            label: 'rainlab.blog::lang.category.description'
-            size: large
-            oc.commentPosition: ''
-            span: full
-            type: markdown
-            tab: rainlab.blog::lang.tab.general
-        
-        show_description:
-            label: rainlab.blog::lang.category.show_description
-            comment: Show description of category
-            type: checkbox 
-            default: true
-            tab: rainlab.blog::lang.tab.settings 
+    name:
+        label: rainlab.blog::lang.category.name
+        placeholder: rainlab.blog::lang.category.name_placeholder
+        span: left
 
-        images:
-            type: fileupload
-            label: Images
-            mode: image
-            tab: Images
+    slug:
+        label: rainlab.blog::lang.category.slug
+        span: right
+        placeholder: rainlab.blog::lang.category.slug_placeholder
+        preset: name
 
-        header_image:
-            type: fileupload
-            label: Header Image
-            mode: image
-            tab: Images
-
-        show_header_image:
-            type: checkbox
-            label: Show header image
-            tab: Images
-            default: true
-
-        box_image:
-            label: Box image
-            type: fileupload
-            mode: image
-            tab: Images
-
-        show_posts_description:
-            label: Show posts summary
-            type: radio 
-            options: 
-                1: Excerpt
-                2: Description
-                3: Both
-                0: Nothing
-            default: 3
-            tab: rainlab.blog::lang.tab.settings 
-
-        shorten_posts_excerpt_by:    
-            type: number
-            default: 0
-            tab: rainlab.blog::lang.tab.settings
-            label: Shorten posts description by
-            comment: Pass 0 to show full excerpt
-            trigger:
-                action: hide
-                field: show_posts_description
-                condition: value[0]
-
-
-        shorten_posts_description_by:    
-            type: number
-            default: 0
-            tab: rainlab.blog::lang.tab.settings
-            label: Shorten posts description by
-            comment: Pass 0 to show full description
-            trigger:
-                action: hide
-                field: show_posts_description
-                condition: value[0]
-        
-        show_posts_title:
-            type: checkbox
-            default: true
-            label: Show Title of posts
-            tab: rainlab.blog::lang.tab.settings
-
-        link_posts_title:
-            type: checkbox
-            default: true
-            label: Link title of posts
-            tab: rainlab.blog::lang.tab.settings
-            trigger:
-                action: show
-                field: show_posts_title
-                condition: checked
-
-        show_published_in:
-            label: rainlab.blog::lang.category.show_published_in
-            type: checkbox
-            default: false
-            tab: rainlab.blog::lang.tab.settings 
-
-        show_published_date:
-            label: rainlab.blog::lang.category.show_published_date
-            type: checkbox
-            default: false
-            tab: rainlab.blog::lang.tab.settings 
-
-        show_posts:
-            label: Show Posts
-            type: checkbox
-            default: true
-            tab: rainlab.blog::lang.tab.settings 
-
-        show_categories:
-            label: Show Categories
-            type: checkbox
-            default: true
-            tab: rainlab.blog::lang.tab.settings 
-
-        merge_categories_with_posts:
-            label: Merge Categories with posts
-            type: checkbox
-            default: false
-            tab: rainlab.blog::lang.tab.settings 
-
-        box_summary_display:
-            label: Box summary
-            type: textarea
-            size: small
-            tab: rainlab.blog::lang.tab.settings 
-            description: Wenn dieses Feld leer ist, wird die Description in der Box angezeigt.
-
-        order_by:
-            label: Order posts by
-            type: radio
-            default: 'title asc'
-
-        layout:    
-            label: Layout
-            type: dropdown
-            default: 0
-            
-        jssor1:
-            type: relation
-            label: Jssor-Slider 1 
-            nameFrom: title
-            emptyOption: Keiner
-            tab: Jssor
-
-        jssor2:
-            type: relation
-            label: Jssor-Slider 2
-            nameFrom: title
-            emptyOption: Keiner
-            tab: Jssor
+    description:
+        label: 'rainlab.blog::lang.category.description'
+        size: large
+        oc.commentPosition: ''
+        span: full
+        type: textarea

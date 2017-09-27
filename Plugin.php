@@ -10,8 +10,6 @@ use Event;
 
 class Plugin extends PluginBase
 {
-	public $require = ['Zoomyboy.Jssor'];
-
     public function pluginDetails()
     {
         return [
@@ -55,11 +53,7 @@ class Plugin extends PluginBase
             'rainlab.blog.access_publish' => [
                 'tab'   => 'rainlab.blog::lang.blog.tab',
                 'label' => 'rainlab.blog::lang.blog.access_publish'
-			],
-			'rainlab.blog.settings' => [
-                'tab'   => 'Settings',
-                'label' => 'Manage Settings'
-			]
+            ]
         ];
     }
 
@@ -72,7 +66,7 @@ class Plugin extends PluginBase
                 'icon'        => 'icon-pencil',
                 'iconSvg'     => 'plugins/rainlab/blog/assets/images/blog-icon.svg',
                 'permissions' => ['rainlab.blog.*'],
-                'order'       => 30,
+                'order'       => 300,
 
                 'sideMenu' => [
                     'new_post' => [
@@ -164,19 +158,4 @@ class Plugin extends PluginBase
             }
         });
     }
-
-	public function registerSettings() {
-		return [
-			'settings' => [
-				'label'       => 'Blog settings',
-				'description' => 'Manage blog settings',
-				'category'    => 'Plugins',
-				'icon'        => 'icon-cog',
-				'class'       => 'Rainlab\Blog\Models\Settings',
-				'order'       => 500,
-				'keywords'    => 'security location',
-				'permissions' => ['rainlab.blog.settings']
-			]
-		];
-	}
 }

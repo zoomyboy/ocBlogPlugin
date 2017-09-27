@@ -15,8 +15,6 @@ use Backend\Models\User;
 use Carbon\Carbon;
 use Cms\Classes\Page as CmsPage;
 use Cms\Classes\Theme;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
 
 class Post extends Model
 {
@@ -52,16 +50,11 @@ class Post extends Model
      */
     protected $dates = ['published_at'];
 
-	protected $casts = [
-		'quelle' => 'json',
-		'weiteres' => 'json'
-	];
-
     /**
      * The attributes on which the post list can be ordered
      * @var array
      */
-    public static $allowedSortingOptions = array(
+    public static $allowedSortingOptions = [
         'title asc' => 'Title (ascending)',
         'title desc' => 'Title (descending)',
         'created_at asc' => 'Created (ascending)',
@@ -71,15 +64,13 @@ class Post extends Model
         'published_at asc' => 'Published (ascending)',
         'published_at desc' => 'Published (descending)',
         'random' => 'Random'
-    );
+    ];
 
     /*
      * Relations
      */
     public $belongsTo = [
-        'user' => ['Backend\Models\User'],
-		'jssor1' => ['Zoomyboy\Jssor\Models\Jssor', 'public' => true],
-		'jssor2' => ['Zoomyboy\Jssor\Models\Jssor', 'public' => true]
+        'user' => ['Backend\Models\User']
     ];
 
     public $belongsToMany = [
@@ -90,14 +81,9 @@ class Post extends Model
         ]
     ];
 
-	public $attachOne = [
-		'header_image' => 'System\Models\File',
-		'box_image' => 'System\Models\File'
-	];
-
     public $attachMany = [
         'featured_images' => ['System\Models\File', 'order' => 'sort_order'],
-		'content_images' => ['System\Models\File'],
+        'content_images' => ['System\Models\File']
     ];
 
     /**
@@ -151,7 +137,7 @@ class Post extends Model
     public function setUrl($pageName, $controller)
     {
         $params = [
-            'id' => $this->id,
+            'id'   => $this->id,
             'slug' => $this->slug,
         ];
 
@@ -293,27 +279,12 @@ class Post extends Model
             $category = Category::find($category);
 
             $categories = $category->getAllChildrenAndSelf()->lists('id');
-
-			//Nur Posts der aktuellen Kategorie
-			$query->whereHas('categories', function($q) use ($category) {
-				return $q->where('id', $category->id);
-			});
-
-			//Unterkategorien und deren Posts
-            //$query->whereHas('categories', function($q) use ($categories) {
-            //    $q->whereIn('id', $categories);
-            //});
+            $query->whereHas('categories', function($q) use ($categories) {
+                $q->whereIn('id', $categories);
+            });
         }
-		
-		//return $query->paginate($perPage, $page);
-		$posts = $query->get();
-		$all =($category->merge_categories_with_posts) ? $posts->merge($category->children) : $posts;
-		$allOnCurrentPage = $all->forPage($page, $perPage);
 
-		return new LengthAwarePaginator($allOnCurrentPage, $all->count(), $perPage, $page, [
-			'path' => Paginator::resolveCurrentPath(),
-			'pageName' => 'page'
-		]);
+        return $query->paginate($perPage, $page);
     }
 
     /**
@@ -368,7 +339,37 @@ class Post extends Model
             return array_get($parts, 0);
         }
 
-        return Str::limit(Html::strip($this->content_html), 600);
+        return Html::limit($this->content_html, 600);
+    }
+
+    //
+    // Next / Previous
+    //
+
+    /**
+     * Returns the next post, if available.
+     * @return self
+     */
+    public function nextPost()
+    {
+        return self::isPublished()
+            ->where('id', '>' , $this->id)
+            ->orderBy('id', 'asc')
+            ->first()
+        ;
+    }
+
+    /**
+     * Returns the previous post, if available.
+     * @return self
+     */
+    public function previousPost()
+    {
+        return self::isPublished()
+            ->where('id', '<' , $this->id)
+            ->orderBy('id', 'desc')
+            ->first()
+        ;
     }
 
     //
@@ -422,17 +423,20 @@ class Post extends Model
 
             $pages = CmsPage::listInTheme($theme, true);
             $cmsPages = [];
+
             foreach ($pages as $page) {
-                if (!$page->hasComponent('blogPost'))
+                if (!$page->hasComponent('blogPost')) {
                     continue;
+                }
 
                 /*
                  * Component must use a categoryPage filter with a routing parameter and post slug
                  * eg: categoryPage = "{{ :somevalue }}", slug = "{{ :somevalue }}"
                  */
                 $properties = $page->getComponentProperties('blogPost');
-                if (!isset($properties['categoryPage']) || !preg_match('/{{\s*:/', $properties['slug']))
+                if (!isset($properties['categoryPage']) || !preg_match('/{{\s*:/', $properties['slug'])) {
                     continue;
+                }
 
                 $cmsPages[] = $page;
             }
@@ -531,64 +535,4 @@ class Post extends Model
 
         return $url;
     }
-
-	public function shortExcerpt($limit) {
-		if ($limit != 0) {
-			return str_limit($this->excerpt, $limit);
-		}
-
-		return $this->excerpt;
-	}
-
-	public function shortContent($limit) {
-		if ($limit != 0) {
-			return str_limit($this->content, $limit);
-		}
-
-		return $this->content;
-	}
-
-	public function hasJssor1() {
-		return $this->jssor1_id != null;
-	}
-
-	public function hasJssor2() {
-		return $this->jssor2_id != null;
-	}
-
-	/**
-	 * Get layout options (files in partials/layouts directory)
-	 *
-	 * @return array
-	 */
-	public function getLayoutOptions() {
-		$files = glob(plugins_path('rainlab/blog/components/post/layouts/*.htm'));
-		$files = array_map(function($file) {
-			return pathinfo($file, PATHINFO_FILENAME);
-		}, $files);
-
-		if (!in_array('default', $files)) {
-			return $files;
-		}
-
-		//Ensure that default layoyut is at index 0 (this is the default option/file)
-		$files = array_filter($files, function($file) {
-			return $file != 'default';
-		});
-		array_unshift($files, 'default');
-		return $files;
-	}
-
-	/**
-	 * Gets filename of a layout index
-	 *
-	 * @param int $layoutIndex the index
-	 *
-	 * @return string
-	 */
-	public function getLayoutFile() {
-		$layouts = $this->getLayoutOptions();
-
-		return $layouts[$this->layout].'.htm';
-	}
 }

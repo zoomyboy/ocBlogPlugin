@@ -11,12 +11,12 @@ class AddHeaderImage extends Migration
     {
         Schema::table('rainlab_blog_categories', function($table)
         {
-            $table->integer('header_image_id');
+            $table->string('headnger_image');
         });
 
         Schema::table('rainlab_blog_posts', function($table)
         {
-            $table->integer('header_image_id');
+            $table->string('header_image');
         });
     }
 
@@ -24,12 +24,12 @@ class AddHeaderImage extends Migration
     {
         Schema::table('rainlab_blog_categories', function($table)
         {
-            $table->dropColumn('header_image_id');
+            $table->dropColumn('header_image');
         });
 
         Schema::table('rainlab_blog_posts', function($table)
         {
-            $table->dropColumn('header_image_id');
+            $table->dropColumn('header_image');
         });
     }
 
